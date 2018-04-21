@@ -1,5 +1,4 @@
-﻿using System;
-using Core;
+﻿using Core;
 using Models;
 
 namespace Architecture
@@ -10,8 +9,6 @@ namespace Architecture
     /// <seealso cref="IBookValidator" />
     public class BookValidator : IBookValidator
     {
-        private IBookSerialValidator SerialValidator { get; }
-
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -20,6 +17,8 @@ namespace Architecture
         {
             SerialValidator = serialValidator;
         }
+
+        private IBookSerialValidator SerialValidator { get; }
 
         /// <summary>
         /// Validates the specified book.

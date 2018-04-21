@@ -2,8 +2,7 @@
 {
     public abstract class FixtureBase
     {
-
-        protected IEntityBuilder<TEntity> Create<TEntity>()
+        protected FixtureBuilder<TEntity> Create<TEntity>()
         {
             var builder = new FixtureBuilder<TEntity>();
             return builder;

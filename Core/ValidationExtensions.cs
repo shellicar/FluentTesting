@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 
 namespace Core
 {
@@ -10,7 +9,7 @@ namespace Core
     {
         public static void Validate<TModel>(this TModel model, string paramName)
         {
-            var context = new ValidationContext(model, serviceProvider: null, items: null);
+            var context = new ValidationContext(model, null, null);
             var results = new List<ValidationResult>();
 
             if (!Validator.TryValidateObject(model, context, results))
@@ -20,12 +19,10 @@ namespace Core
                 {
                     throw exceptions.First();
                 }
-                else
-                {
-                    var aggregate = new AggregateException(exceptions);
-                    var message = string.Join(Environment.NewLine, results.Select(x => x.ErrorMessage));
-                    throw new ArgumentException(message, paramName, aggregate);
-                }
+
+                var aggregate = new AggregateException(exceptions);
+                var message = string.Join(Environment.NewLine, results.Select(x => x.ErrorMessage));
+                throw new ArgumentException(message, paramName, aggregate);
 
             }
         }

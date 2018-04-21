@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Architecture
 {
     /// <summary>
-    /// Book serial class to encapsulate serial text and provide simple methods to edit, add or parse text.<br />
+    /// Book serial class to encapsulate book serial text and provide simple methods to edit, add or parse text.<br />
     /// This does not perform validation, only that the text is split into groups by a delimiter.
     /// </summary>
     public class BookSerial
     {
-        private List<string> Groups { get; }
-
         public const char Separator = '-';
 
         /// <summary>
@@ -27,6 +24,8 @@ namespace Architecture
         {
             Groups = groups.ToList();
         }
+
+        private List<string> Groups { get; }
 
         /// <summary>
         /// Add a group of characters to the serial.

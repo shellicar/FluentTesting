@@ -3,6 +3,7 @@ using Architecture;
 using ArchitectureFacts.Extensions;
 using Core;
 using FluentFixture;
+using FluentFixture.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models;
 using NSubstitute;
@@ -12,18 +13,18 @@ namespace ArchitectureFacts.Tests
     [TestClass]
     public class BookValidatorFacts : FixtureBase
     {
-        protected IEntityBuilder<BookValidator> CreateValidator()
+        private FixtureBuilder<BookValidator> _sut;
+
+        public BookValidatorFacts()
         {
-            return Create<BookValidator>()
+            _sut = Create<BookValidator>()
                 .SetArguments(Substitute.For<IBookSerialValidator>());
         }
 
         [TestMethod]
         public void Book_cannot_be_null()
         {
-            CreateValidator()
-
-                .WhenValidate(null)
+            _sut.WhenValidate(null)
 
                 .ThenExpectException<ArgumentNullException>();
         }
@@ -32,12 +33,9 @@ namespace ArchitectureFacts.Tests
         public void Book_title_cannot_be_null()
         {
             var bookWithoutTitle = Create<Book>().Valid()
-                .With(x => x.Title = null)
-                .Build();
+                .With(x => x.Title = null);
 
-            CreateValidator()
-
-                .WhenValidate(bookWithoutTitle)
+            _sut.WhenValidate(bookWithoutTitle)
 
                 .ThenExpectArgumentException(nameof(Book.Title));
         }
@@ -45,29 +43,19 @@ namespace ArchitectureFacts.Tests
         [TestMethod]
         public void Book_requires_title_and_serial()
         {
-            var bookWithoutTitle = Create<Book>()
-                .With(x =>
-                {
-                    x.Title = null;
-                    x.Serial = null;
-                })
-                .Build();
+            var bookWithoutTitle = Create<Book>();
 
-            CreateValidator()
+            _sut.WhenValidate(bookWithoutTitle)
 
-                .WhenValidate(bookWithoutTitle)
-
-                .ThenExpectArgumentException("book");
+                .ThenExpectArgumentException();
         }
 
         [TestMethod]
         public void Can_validate_valid_book()
         {
-            var book = Create<Book>().Valid().Build();
+            var book = Create<Book>().Valid();
 
-            CreateValidator()
-
-                .WhenValidate(book)
+            _sut.WhenValidate(book)
 
                 .ThenSuccess();
         }

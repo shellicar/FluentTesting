@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Architecture.Exceptions;
 using Core;
 
@@ -13,6 +11,11 @@ namespace Architecture
     /// <seealso cref="Core.IBookSerialValidator" />
     public class SerialValidator : IBookSerialValidator
     {
+        public void Validate(BookSerial bookSerial)
+        {
+            Validate(bookSerial.ToString());
+        }
+
         /// <summary>
         /// Validates the specified serial.<br />
         /// Splits the string into groups based on the separator.<br />

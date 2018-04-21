@@ -6,7 +6,7 @@ namespace ArchitectureFacts.Extensions
     /// <summary>
     /// Extension methods to build Book objects fluently.
     /// </summary>
-    static class BookExtensions
+    internal static class BookExtensions
     {
         /// <summary>
         /// Creates a Book that is considred valid.<br />
@@ -15,7 +15,7 @@ namespace ArchitectureFacts.Extensions
         /// </summary>
         /// <param name="builder">The builder.</param>
         /// <returns>a valid Book.</returns>
-        public static IEntityBuilder<Book> Valid(this IEntityBuilder<Book> builder)
+        public static FixtureBuilder<Book> Valid(this FixtureBuilder<Book> builder)
         {
             builder.AddMethod(x =>
             {

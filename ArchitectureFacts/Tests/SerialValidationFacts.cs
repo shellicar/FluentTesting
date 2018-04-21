@@ -3,6 +3,7 @@ using Architecture;
 using Architecture.Exceptions;
 using ArchitectureFacts.Extensions;
 using FluentFixture;
+using FluentFixture.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ArchitectureFacts.Tests
@@ -10,64 +11,64 @@ namespace ArchitectureFacts.Tests
     [TestClass]
     public class SerialValidationFacts : FixtureBase
     {
+        private readonly FixtureBuilder<SerialValidator> _sut;
+
         public SerialValidationFacts()
         {
-            sut = new SerialValidator();
+            _sut = new FixtureBuilder<SerialValidator>();
         }
-
-        private readonly SerialValidator sut;
 
         [TestMethod]
         public void Serial_cannot_be_null()
         {
             string serial = null;
 
-            void When() => sut.Validate(serial);
+            _sut.WhenValidate(serial)
 
-            Assert.ThrowsException<ArgumentNullException>((Action)When);
+                .ThenExpectException<ArgumentNullException>();
         }
 
         [TestMethod]
         public void Serial_cannot_be_empty()
         {
-            string serial = "    ";
+            var serial = "    ";
 
-            void When() => sut.Validate(serial);
+            _sut.WhenValidate(serial)
 
-            Assert.ThrowsException<ArgumentException>((Action)When);
+                .ThenExpectException<ArgumentException>();
         }
 
         [TestMethod]
         public void Valid_serial_is_valid()
         {
-            Create<BookSerial>().Valid()
+            var serial = Create<BookSerial>().Valid();
 
-                .WhenValidate(sut)
+            _sut.WhenValidate(serial)
 
-                .ThenSuccess();
+            .ThenSuccess();
         }
 
         [TestMethod]
         public void Serial_must_have_three_groups()
         {
-            Create<BookSerial>()
+            var serial = Create<BookSerial>()
                 .WithGroup("123")
-                .WithGroup("123")
+                .WithGroup("123");
 
-                .WhenValidate(sut)
+            _sut.WhenValidate(serial)
 
-                .ThenExpectException<GroupCountException>();
+            .ThenExpectException<GroupCountException>();
         }
 
         [TestMethod]
         public void First_group_must_be_3_characters_long()
         {
-            Create<BookSerial>().Valid()
-                .SetGroup(0, "12")
+            var serial = Create<BookSerial>().Valid()
+                .SetGroup(0, "12");
 
-                .WhenValidate(sut)
+            _sut.WhenValidate(serial)
 
-                .ThenExpectException<GroupParseException>();
+            .ThenExpectException<GroupParseException>();
         }
     }
 }
