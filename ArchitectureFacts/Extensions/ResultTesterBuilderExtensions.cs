@@ -3,7 +3,7 @@ using FluentFixture;
 
 namespace ArchitectureFacts.Extensions
 {
-    public static class ResultTesterExtensions
+    public static class ResultTesterBuilderExtensions
     {
         public static FixtureBuilder<ResultTester> WhenTransform(this FixtureBuilder<ResultTester> builder, string text)
         {

@@ -1,6 +1,6 @@
+using ArchitectureFacts.Builders;
 using ArchitectureFacts.Extensions;
 using Core;
-using FluentFixture;
 using FluentFixture.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models;
@@ -8,18 +8,19 @@ using Models;
 namespace ArchitectureFacts.Tests
 {
     [TestClass]
-    public class BookFacts : FixtureBase
+    public class BookFacts
     {
         [TestMethod]
         public void Book_class_exists()
         {
+            // tdd artefact...
             new Book();
         }
 
         [TestMethod]
         public void Can_build_book()
         {
-            Book book = Create<Book>();
+            Book book = DefaultBuilder.Create<Book>();
 
             Assert.IsInstanceOfType(book, typeof(Book));
         }
@@ -27,8 +28,8 @@ namespace ArchitectureFacts.Tests
         [TestMethod]
         public void Can_build_valid_book()
         {
-            Book book = Create<Book>().Valid();
-
+            Book book = DefaultBuilder.Create<Book>()
+                .Valid();
 
             Assert.IsInstanceOfType(book, typeof(Book));
         }
@@ -36,7 +37,7 @@ namespace ArchitectureFacts.Tests
         [TestMethod]
         public void Valid_book_is_valid()
         {
-            Create<Book>()
+            DefaultBuilder.Create<Book>()
                 .Valid()
 
                 .When(x => x.Validate("book"))
@@ -47,7 +48,7 @@ namespace ArchitectureFacts.Tests
         [TestMethod]
         public void Default_book_isnt_valid()
         {
-            Create<Book>()
+            DefaultBuilder.Create<Book>()
 
                 .When(x => x.Validate("book"))
 

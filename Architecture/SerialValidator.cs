@@ -11,11 +11,6 @@ namespace Architecture
     /// <seealso cref="Core.IBookSerialValidator" />
     public class SerialValidator : IBookSerialValidator
     {
-        public void Validate(BookSerial bookSerial)
-        {
-            Validate(bookSerial.ToString());
-        }
-
         /// <summary>
         /// Validates the specified serial.<br />
         /// Splits the string into groups based on the separator.<br />
@@ -60,6 +55,11 @@ namespace Architecture
             {
                 throw new GroupParseException("Groups must contain only digits.");
             }
+        }
+
+        public void Validate(BookSerial bookSerial)
+        {
+            Validate(bookSerial.ToString());
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using Architecture;
 using Core;
 using FluentFixture;
@@ -8,7 +7,7 @@ namespace ArchitectureFacts.Extensions
     /// <summary>
     /// Extension methods to build BookSerial objects fluently.
     /// </summary>
-    internal static class BookSerialExtensions
+    internal static class BookSerialBuilderExtensions
     {
         /// <summary>
         /// Builds a BookSerial with a given text group.

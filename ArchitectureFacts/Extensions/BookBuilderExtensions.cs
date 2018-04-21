@@ -6,7 +6,7 @@ namespace ArchitectureFacts.Extensions
     /// <summary>
     /// Extension methods to build Book objects fluently.
     /// </summary>
-    internal static class BookExtensions
+    internal static class BookBuilderExtensions
     {
         /// <summary>
         /// Creates a Book that is considred valid.<br />

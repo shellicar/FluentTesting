@@ -1,9 +1,9 @@
 ﻿using Architecture;
 using FluentFixture;
 
-namespace ArchitectureFacts.Tests
+namespace ArchitectureFacts.Extensions
 {
-    public static class SerialValidationExtensions
+    public static class SerialValidationBuilderExtensions
     {
         public static FixtureBuilder<SerialValidator> WhenValidate(this FixtureBuilder<SerialValidator> fixture, string serial)
         {

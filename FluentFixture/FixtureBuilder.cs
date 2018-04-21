@@ -12,6 +12,11 @@ namespace FluentFixture
 
         private List<object> ConstructorArgs { get; } = new List<object>();
 
+        public static FixtureBuilder<TFixture> Create()
+        {
+            return new FixtureBuilder<TFixture>();
+        }
+
         public FixtureBuilder<TFixture> AddMethod(Modify<TFixture> action)
         {
             BuildActions.Add(action);

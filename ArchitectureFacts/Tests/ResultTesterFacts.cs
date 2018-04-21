@@ -1,21 +1,20 @@
 ﻿using Architecture;
+using ArchitectureFacts.Builders;
 using ArchitectureFacts.Extensions;
-using FluentFixture;
 using FluentFixture.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
 
 namespace ArchitectureFacts.Tests
 {
     [TestClass]
-    public class ResultTesterFacts : FixtureBase
+    public class ResultTesterFacts
     {
         [TestMethod]
         public void Transformed_string_is_reversed()
         {
             var text = "hello";
 
-            Create<ResultTester>()
+            DefaultBuilder.Create<ResultTester>()
 
                 .WhenTransform(text)
 
@@ -27,7 +26,7 @@ namespace ArchitectureFacts.Tests
         {
             var text = "hello";
 
-            Create<ResultTester>()
+            DefaultBuilder.Create<ResultTester>()
 
                 .WhenTransform(text)
 

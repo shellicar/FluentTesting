@@ -1,5 +1,6 @@
 using System;
 using Architecture;
+using ArchitectureFacts.Builders;
 using ArchitectureFacts.Extensions;
 using Core;
 using FluentFixture;
@@ -11,13 +12,13 @@ using NSubstitute;
 namespace ArchitectureFacts.Tests
 {
     [TestClass]
-    public class BookValidatorFacts : FixtureBase
+    public class BookValidatorFacts
     {
-        private FixtureBuilder<BookValidator> _sut;
+        private readonly FixtureBuilder<BookValidator> _sut;
 
         public BookValidatorFacts()
         {
-            _sut = Create<BookValidator>()
+            _sut = DefaultBuilder.Create<BookValidator>()
                 .SetArguments(Substitute.For<IBookSerialValidator>());
         }
 
@@ -32,7 +33,7 @@ namespace ArchitectureFacts.Tests
         [TestMethod]
         public void Book_title_cannot_be_null()
         {
-            var bookWithoutTitle = Create<Book>().Valid()
+            var bookWithoutTitle = DefaultBuilder.Create<Book>().Valid()
                 .With(x => x.Title = null);
 
             _sut.WhenValidate(bookWithoutTitle)
@@ -43,7 +44,7 @@ namespace ArchitectureFacts.Tests
         [TestMethod]
         public void Book_requires_title_and_serial()
         {
-            var bookWithoutTitle = Create<Book>();
+            var bookWithoutTitle = DefaultBuilder.Create<Book>();
 
             _sut.WhenValidate(bookWithoutTitle)
 
@@ -53,7 +54,7 @@ namespace ArchitectureFacts.Tests
         [TestMethod]
         public void Can_validate_valid_book()
         {
-            var book = Create<Book>().Valid();
+            var book = DefaultBuilder.Create<Book>().Valid();
 
             _sut.WhenValidate(book)
 

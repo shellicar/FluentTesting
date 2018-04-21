@@ -4,7 +4,7 @@ using Models;
 
 namespace ArchitectureFacts.Extensions
 {
-    public static class BookValidatorExtensions
+    public static class BookValidatorBuilderExtensions
     {
         public static FixtureBuilder<BookValidator> WhenValidate(this FixtureBuilder<BookValidator> builder, Book book)
         {

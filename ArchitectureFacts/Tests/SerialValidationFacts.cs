@@ -1,6 +1,7 @@
 ﻿using System;
 using Architecture;
 using Architecture.Exceptions;
+using ArchitectureFacts.Builders;
 using ArchitectureFacts.Extensions;
 using FluentFixture;
 using FluentFixture.Extensions;
@@ -9,7 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ArchitectureFacts.Tests
 {
     [TestClass]
-    public class SerialValidationFacts : FixtureBase
+    public class SerialValidationFacts
     {
         private readonly FixtureBuilder<SerialValidator> _sut;
 
@@ -41,7 +42,7 @@ namespace ArchitectureFacts.Tests
         [TestMethod]
         public void Valid_serial_is_valid()
         {
-            var serial = Create<BookSerial>().Valid();
+            var serial = DefaultBuilder.Create<BookSerial>().Valid();
 
             _sut.WhenValidate(serial)
 
@@ -51,7 +52,7 @@ namespace ArchitectureFacts.Tests
         [TestMethod]
         public void Serial_must_have_three_groups()
         {
-            var serial = Create<BookSerial>()
+            var serial = DefaultBuilder.Create<BookSerial>()
                 .WithGroup("123")
                 .WithGroup("123");
 
@@ -63,7 +64,7 @@ namespace ArchitectureFacts.Tests
         [TestMethod]
         public void First_group_must_be_3_characters_long()
         {
-            var serial = Create<BookSerial>().Valid()
+            var serial = DefaultBuilder.Create<BookSerial>().Valid()
                 .SetGroup(0, "12");
 
             _sut.WhenValidate(serial)

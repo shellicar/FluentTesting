@@ -6,7 +6,10 @@ namespace FluentFixture.Extensions
     {
         public static void ThenExpectArgumentException(this FixtureBuilderBase result, string paramName = null)
         {
-            void Invoke() => result.Execute();
+            void Invoke()
+            {
+                result.Execute();
+            }
 
             var ex = Test.AssertThrows<ArgumentException>(Invoke);
             if (paramName != null && ex.ParamName != paramName)
@@ -17,7 +20,11 @@ namespace FluentFixture.Extensions
 
         public static void ThenExpectException<TException>(this FixtureBuilderBase result) where TException : Exception
         {
-            void Invoke() => result.Execute();
+            void Invoke()
+            {
+                result.Execute();
+            }
+
             Test.AssertThrows<TException>(Invoke);
         }
 
