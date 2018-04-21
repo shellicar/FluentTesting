@@ -1,7 +1,7 @@
 using System;
 using Architecture;
-using ArchitectureFacts.Builders;
-using ArchitectureFacts.Extensions;
+using ArchitectureTests.Builders;
+using ArchitectureTests.Extensions;
 using Core;
 using FluentFixture;
 using FluentFixture.Extensions;
@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models;
 using NSubstitute;
 
-namespace ArchitectureFacts.Tests
+namespace ArchitectureTests.Tests
 {
     [TestClass]
     public class BookValidatorFacts

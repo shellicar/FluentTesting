@@ -2,7 +2,7 @@
 using FluentFixture;
 using Models;
 
-namespace ArchitectureFacts.Extensions
+namespace ArchitectureTests.Extensions
 {
     public static class BookValidatorBuilderExtensions
     {

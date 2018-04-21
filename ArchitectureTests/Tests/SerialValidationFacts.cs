@@ -1,13 +1,13 @@
 ﻿using System;
 using Architecture;
 using Architecture.Exceptions;
-using ArchitectureFacts.Builders;
-using ArchitectureFacts.Extensions;
+using ArchitectureTests.Builders;
+using ArchitectureTests.Extensions;
 using FluentFixture;
 using FluentFixture.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ArchitectureFacts.Tests
+namespace ArchitectureTests.Tests
 {
     [TestClass]
     public class SerialValidationFacts

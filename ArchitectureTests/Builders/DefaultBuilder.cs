@@ -1,6 +1,6 @@
 using FluentFixture;
 
-namespace ArchitectureFacts.Builders
+namespace ArchitectureTests.Builders
 {
     internal static class DefaultBuilder
     {

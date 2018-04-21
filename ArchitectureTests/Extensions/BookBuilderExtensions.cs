@@ -1,7 +1,7 @@
 using FluentFixture;
 using Models;
 
-namespace ArchitectureFacts.Extensions
+namespace ArchitectureTests.Extensions
 {
     /// <summary>
     /// Extension methods to build Book objects fluently.

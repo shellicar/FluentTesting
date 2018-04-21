@@ -45,10 +45,11 @@ namespace FluentFixture.Extensions
             result.Execute();
         }
 
-        public static void ThenIs<TEntity>(this FixtureBuilder<TEntity> result, object value)
+        public static object ThenIs<TEntity>(this FixtureBuilder<TEntity> result, object value)
         {
             var obj = result.Execute()();
             Test.AssertEqual(obj, value);
+            return obj;
         }
 
         public static void ThenIsNot<TEntity>(this FixtureBuilder<TEntity> result, object value)

@@ -1,7 +1,7 @@
 ﻿using Architecture;
 using FluentFixture;
 
-namespace ArchitectureFacts.Extensions
+namespace ArchitectureTests.Extensions
 {
     public static class SerialValidationBuilderExtensions
     {

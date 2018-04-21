@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentFixture.Exceptions;
 
 namespace FluentFixture
 {
@@ -40,7 +41,6 @@ namespace FluentFixture
             }
 
             InvokeList.Add(Newaction);
-            InvokeResults.Add(new ActionResult());
             return this;
         }
 
@@ -98,7 +98,7 @@ namespace FluentFixture
         {
             public virtual object GetResult()
             {
-                throw new InvalidOperationException("No result from action.");
+                throw new NoResultFromActionException();
             }
         }
 
