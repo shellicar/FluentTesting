@@ -10,7 +10,7 @@ namespace ArchitectureFacts.Tests
     [TestClass]
     public class ResultTesterFacts
     {
-        private FixtureBuilder<ResultTester> _sut;
+        private readonly FixtureBuilder<ResultTester> _sut;
 
         public ResultTesterFacts()
         {

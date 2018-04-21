@@ -33,7 +33,8 @@ namespace ArchitectureFacts.Tests
         [TestMethod]
         public void Book_title_cannot_be_null()
         {
-            var bookWithoutTitle = DefaultBuilder.Create<Book>().Valid()
+            var bookWithoutTitle = DefaultBuilder.Create<Book>()
+                .Valid()
                 .With(x => x.Title = null);
 
             _sut.WhenValidate(bookWithoutTitle)
@@ -54,7 +55,8 @@ namespace ArchitectureFacts.Tests
         [TestMethod]
         public void Can_validate_valid_book()
         {
-            var book = DefaultBuilder.Create<Book>().Valid();
+            var book = DefaultBuilder.Create<Book>()
+                .Valid();
 
             _sut.WhenValidate(book)
 

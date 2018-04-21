@@ -42,11 +42,12 @@ namespace ArchitectureFacts.Tests
         [TestMethod]
         public void Valid_serial_is_valid()
         {
-            var serial = DefaultBuilder.Create<BookSerial>().Valid();
+            var serial = DefaultBuilder.Create<BookSerial>()
+                .Valid();
 
             _sut.WhenValidate(serial)
 
-            .ThenSuccess();
+                .ThenSuccess();
         }
 
         [TestMethod]
@@ -58,18 +59,19 @@ namespace ArchitectureFacts.Tests
 
             _sut.WhenValidate(serial)
 
-            .ThenExpectException<GroupCountException>();
+                .ThenExpectException<GroupCountException>();
         }
 
         [TestMethod]
         public void First_group_must_be_3_characters_long()
         {
-            var serial = DefaultBuilder.Create<BookSerial>().Valid()
+            var serial = DefaultBuilder.Create<BookSerial>()
+                .Valid()
                 .SetGroup(0, "12");
 
             _sut.WhenValidate(serial)
 
-            .ThenExpectException<GroupParseException>();
+                .ThenExpectException<GroupParseException>();
         }
     }
 }
