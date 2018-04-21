@@ -19,7 +19,34 @@ namespace ArchitectureTests.Tests
         public BookValidatorFacts()
         {
             _sut = DefaultBuilder.Create<BookValidator>()
-                .SetArguments(Substitute.For<IBookSerialValidator>());
+                .SetArguments(BookSerialValidator);
+        }
+
+        private IBookSerialValidator BookSerialValidator { get; } = Substitute.For<IBookSerialValidator>();
+
+        [TestMethod]
+        public void Calls_book_serial_validator_validate_method()
+        {
+            Book book = DefaultBuilder.Create<Book>()
+                .Valid();
+
+            _sut.WhenValidate(book)
+
+                .ThenReceived(BookSerialValidator, x => x.Validate(book.Serial));
+        }
+
+        [TestMethod]
+        public void Doesnt_stop_exception_from_validate()
+        {
+            BookSerialValidator.When(x => x.Validate(Arg.Any<string>())).Throw<TestingException>();
+
+            Book book = DefaultBuilder.Create<Book>()
+                .Valid();
+
+            _sut.WhenValidate(book)
+
+                .ThenExpectException<TestingException>();
+
         }
 
         [TestMethod]
@@ -62,5 +89,8 @@ namespace ArchitectureTests.Tests
 
                 .ThenSuccess();
         }
+
+        private class TestingException : Exception
+        {}
     }
 }

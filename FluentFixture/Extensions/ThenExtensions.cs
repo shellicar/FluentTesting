@@ -18,6 +18,7 @@ namespace FluentFixture.Extensions
             }
         }
 
+
         public static void ThenExpectException<TException>(this FixtureBuilderBase result) where TException : Exception
         {
             void Invoke()
