@@ -5,10 +5,18 @@ using FluentFixture.Exceptions;
 
 namespace FluentFixture
 {
-    public class FixtureBuilder<TFixture> :FixtureBuilderBase //: FixtureBuilder<TFixture>
+    /// <summary>
+    /// Class that helps build fixtures, perform operations and assert results.
+    /// </summary>
+    /// <typeparam name="TFixture">The type of the fixture.</typeparam>
+    /// <seealso cref="FixtureBuilderBase" />
+    public class FixtureBuilder<TFixture> : FixtureBuilderBase
     {
-        private List<ActionResult> InvokeResults { get; } = new List<ActionResult>();
+        // results of the invoked methods
+        private List<InvokeResult> InvokeResults { get; } = new List<InvokeResult>();
+        // methods to perform
         private List<Action<TFixture>> InvokeList { get; } = new List<Action<TFixture>>();
+        // actions to perform to build the object
         private List<Modify<TFixture>> BuildActions { get; } = new List<Modify<TFixture>>();
 
         private List<object> ConstructorArgs { get; } = new List<object>();
@@ -18,12 +26,20 @@ namespace FluentFixture
             return new FixtureBuilder<TFixture>();
         }
 
+        /// <summary>
+        /// Adds a method to use to build the object.
+        /// </summary>
+        /// <param name="action">The action.</param>
         public FixtureBuilder<TFixture> AddMethod(Modify<TFixture> action)
         {
             BuildActions.Add(action);
             return this;
         }
 
+        /// <summary>
+        /// Sets the constructor arguments for the object.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
         public FixtureBuilder<TFixture> SetArguments(params object[] args)
         {
             ConstructorArgs.Clear();
@@ -31,25 +47,68 @@ namespace FluentFixture
             return this;
         }
 
-
+        /// <summary>
+        /// Adds an action to perform on the fixture.
+        /// </summary>
+        /// <param name="action">The action.</param>
         public FixtureBuilder<TFixture> When(Action<TFixture> action)
         {
             void Newaction(TFixture x)
             {
                 action(x);
-                InvokeResults.Add(new ActionResult());
+                InvokeResults.Add(new InvokeResult());
             }
 
             InvokeList.Add(Newaction);
             return this;
         }
 
-        public FixtureBuilder<TFixture> When<TResult>(Func<TFixture, TResult> action)
+        /// <summary>
+        /// Adds an action to perform on the fixture.<br />
+        /// This uses the result of the previous invocation.
+        /// </summary>
+        /// <param name="action">The action.</param>
+        public FixtureBuilder<TFixture> WhenWithResult(Action<TFixture, object> action)
         {
             void Newaction(TFixture x)
             {
-                var result = action(x);
-                InvokeResults.Add(new ActionResultObject(result));
+                action(x, GetLastResult());
+                InvokeResults.Add(new InvokeResult());
+            }
+
+            InvokeList.Add(Newaction);
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a function to perform on the fixture.<br />
+        /// This uses the result of the previous invocation.
+        /// </summary>
+        /// <typeparam name="TResult">The type of the result.</typeparam>
+        /// <param name="func">The action.</param>
+        public FixtureBuilder<TFixture> WhenWithResult<TResult>(Func<TFixture, object, TResult> func)
+        {
+            void Newaction(TFixture x)
+            {
+                var result = func(x, GetLastResult());
+                InvokeResults.Add(new InvokeResultObject(result));
+            }
+
+            InvokeList.Add(Newaction);
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a function to perform on the fixture.<br />
+        /// </summary>
+        /// <typeparam name="TResult">The type of the result.</typeparam>
+        /// <param name="func">The function.</param>
+        public FixtureBuilder<TFixture> When<TResult>(Func<TFixture, TResult> func)
+        {
+            void Newaction(TFixture x)
+            {
+                var result = func(x);
+                InvokeResults.Add(new InvokeResultObject(result));
             }
 
             InvokeList.Add(Newaction);
@@ -61,6 +120,9 @@ namespace FluentFixture
             return builder.Build();
         }
 
+        /// <summary>
+        /// Builds the fixture with the previously specified operations.
+        /// </summary>
         public TFixture Build()
         {
             var fixture = (TFixture)Activator.CreateInstance(typeof(TFixture), ConstructorArgs.ToArray());
@@ -73,6 +135,10 @@ namespace FluentFixture
             return fixture;
         }
 
+        /// <summary>
+        /// Executes the invocations, returning a method that can be used to retrieve the last result.
+        /// </summary>
+        /// <returns>a method that either returns the result of the last invocation, or throws an exception if the method has a return type of void.</returns>
         public override Func<object> Execute()
         {
             if (InvokeList.Count == 0)
@@ -89,28 +155,40 @@ namespace FluentFixture
             return GetLastResult;
         }
 
+        /// <summary>
+        /// Gets the result of the last invocation, or throws an exception.
+        /// </summary>
+        /// <returns></returns>
         private object GetLastResult()
         {
             return InvokeResults.Last().GetResult();
         }
 
-        private class ActionResult
+        private class InvokeResult
         {
+            /// <summary>
+            /// Gets the result.
+            /// </summary>
+            /// <exception cref="NoResultFromActionException"></exception>
             public virtual object GetResult()
             {
                 throw new NoResultFromActionException();
             }
         }
 
-        private class ActionResultObject : ActionResult
+        private class InvokeResultObject : InvokeResult
         {
             private readonly object _result;
 
-            public ActionResultObject(object result)
+            public InvokeResultObject(object result)
             {
                 _result = result;
             }
 
+            /// <summary>
+            /// Gets the result.
+            /// </summary>
+            /// <returns>the result.</returns>
             public override object GetResult()
             {
                 return _result;
