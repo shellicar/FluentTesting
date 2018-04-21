@@ -1,6 +1,7 @@
 ﻿using Architecture;
 using ArchitectureFacts.Builders;
 using ArchitectureFacts.Extensions;
+using FluentFixture;
 using FluentFixture.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -9,14 +10,19 @@ namespace ArchitectureFacts.Tests
     [TestClass]
     public class ResultTesterFacts
     {
+        private FixtureBuilder<ResultTester> _sut;
+
+        public ResultTesterFacts()
+        {
+            _sut = DefaultBuilder.Create<ResultTester>();
+        }
+
         [TestMethod]
         public void Transformed_string_is_reversed()
         {
             var text = "hello";
 
-            DefaultBuilder.Create<ResultTester>()
-
-                .WhenTransform(text)
+            _sut.WhenTransform(text)
 
                 .ThenIs("olleh");
         }
@@ -26,9 +32,7 @@ namespace ArchitectureFacts.Tests
         {
             var text = "hello";
 
-            DefaultBuilder.Create<ResultTester>()
-
-                .WhenTransform(text)
+            _sut.WhenTransform(text)
 
                 .ThenIsNot("hello");
         }
