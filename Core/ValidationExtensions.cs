@@ -7,7 +7,7 @@ namespace Core
 {
     public static class ValidationExtensions
     {
-        public static void Validate<TModel>(this TModel model, string paramName)
+        public static void ValidateModel<TModel>(this TModel model, string paramName)
         {
             var context = new ValidationContext(model, null, null);
             var results = new List<ValidationResult>();

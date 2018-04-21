@@ -1,3 +1,4 @@
+using Core;
 using FluentFixture;
 using Models;
 
@@ -24,6 +25,11 @@ namespace ArchitectureTests.Extensions
                 return x;
             });
             return builder;
+        }
+
+        public static FixtureBuilder<Book> WhenValidateModel(this FixtureBuilder<Book> builder, string paramName)
+        {
+            return builder.When(x => x.ValidateModel(paramName));
         }
     }
 }

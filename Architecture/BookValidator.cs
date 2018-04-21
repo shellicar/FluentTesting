@@ -27,7 +27,7 @@ namespace Architecture
         /// <returns></returns>
         public void Validate(Book book)
         {
-            book.Validate(nameof(book));
+            book.ValidateModel(nameof(book));
 
             SerialValidator.Validate(book.Serial);
         }

@@ -7,8 +7,7 @@ namespace ArchitectureTests.Extensions
     {
         public static FixtureBuilder<ResultTester> WhenTransform(this FixtureBuilder<ResultTester> builder, string text)
         {
-            builder.When(x => x.Transform(text));
-            return builder;
+            return builder.When(x => x.Transform(text));
         }
     }
 }

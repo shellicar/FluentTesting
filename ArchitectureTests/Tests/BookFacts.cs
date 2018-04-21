@@ -40,7 +40,7 @@ namespace ArchitectureTests.Tests
             DefaultBuilder.Create<Book>()
                 .Valid()
 
-                .When(x => x.Validate("book"))
+                .WhenValidateModel("book")
 
                 .ThenSuccess();
         }
@@ -50,7 +50,7 @@ namespace ArchitectureTests.Tests
         {
             DefaultBuilder.Create<Book>()
 
-                .When(x => x.Validate("book"))
+                .WhenValidateModel("book")
 
                 .ThenExpectArgumentException("book");
         }

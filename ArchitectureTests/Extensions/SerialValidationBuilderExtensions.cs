@@ -7,14 +7,12 @@ namespace ArchitectureTests.Extensions
     {
         public static FixtureBuilder<SerialValidator> WhenValidate(this FixtureBuilder<SerialValidator> fixture, string serial)
         {
-            fixture.When(x => x.Validate(serial));
-            return fixture;
+            return fixture.When(x => x.Validate(serial));
         }
 
         public static FixtureBuilder<SerialValidator> WhenValidate(this FixtureBuilder<SerialValidator> fixture, BookSerial serial)
         {
-            fixture.When(x => x.Validate(serial));
-            return fixture;
+            return fixture.When(x => x.Validate(serial));
         }
     }
 }
