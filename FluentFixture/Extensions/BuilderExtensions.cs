@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentFixture.Delegates;
 
 namespace FluentFixture.Extensions
 {

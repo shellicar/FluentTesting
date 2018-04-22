@@ -1,3 +1,5 @@
+using FluentFixture.Delegates;
+
 namespace FluentFixture
 {
     public interface IFixtureBuilder<TFixture>

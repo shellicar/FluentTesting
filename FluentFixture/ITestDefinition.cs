@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentFixture.Delegates;
 
 namespace FluentFixture
 {
@@ -7,11 +8,6 @@ namespace FluentFixture
         Func<object> Execute();
     }
 
-
-    public delegate void TestAction<in TFixture>(TFixture fixture);
-    public delegate void TestActionWithResult<in TFixture>(TFixture fixture, object previousResult);
-    public delegate TResult TestFunction<in TFixture, out TResult>(TFixture fixture);
-    public delegate TResult TestFunctionWithResult<in TFixture, out TResult>(TFixture fixture, object previousResult);
 
     public interface ITestDefinition<out TFixture> : ITestDefinition
     {
