@@ -1,3 +1,4 @@
+using System;
 using FluentFixture;
 using FluentFixture.Exceptions;
 using FluentFixture.Extensions;
@@ -11,39 +12,35 @@ namespace FluentFixtureTests
         [TestMethod]
         public void Checking_result_from_action_raises_error()
         {
-            void DoAction(TestingClass x)
-            {
+            var test = DefaultBuilder.Create<TestingClass>()
+                .When()
+                .Invoke(x => { });
 
-            }
+            Action When = () => { test.ThenIs(true); };
 
-            Assert.ThrowsException<NoResultFromActionException>(() =>
-            {
-                new TestingClass();
-                DefaultBuilder.Create<TestingClass>()
-
-                    .When()
-                    .Invoke(DoAction)
-
-                    .ThenIs(true);
-            });
+            Assert.ThrowsException<NoResultFromActionException>(When);
         }
 
         [TestMethod]
-        public void Checking_result_from_func_returns_result()
+        public void Can_assert_result()
         {
-            int DoAction(TestingClass x)
-            {
-                return 5000;
-            }
-
-            var result = DefaultBuilder.Create<TestingClass>()
-
+            DefaultBuilder.Create<TestingClass>()
                 .When()
-                .Invoke(DoAction)
+                .Invoke(x => 5000)
 
                 .ThenIs(5000);
+        }
 
-            Assert.AreEqual(5000, result);
+        [TestMethod]
+        public void Asserting_incorrect_result_raises_Exception()
+        {
+            var test = DefaultBuilder.Create<TestingClass>()
+                .When()
+                .Invoke(x => 4999);
+
+            Action When = () => { test.ThenIs(5000); };
+
+            Assert.ThrowsException<TestFailedException>(When);
         }
     }
 }

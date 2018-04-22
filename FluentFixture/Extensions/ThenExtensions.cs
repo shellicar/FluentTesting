@@ -45,11 +45,10 @@ namespace FluentFixture.Extensions
             result.Execute();
         }
 
-        public static object ThenIs<TFixture>(this ITestDefinition<TFixture> result, object value)
+        public static void ThenIs<TFixture>(this ITestDefinition<TFixture> result, object value)
         {
             var obj = result.Execute()();
             Test.AssertEqual(obj, value);
-            return obj;
         }
 
         public static void ThenIsNot<TFixture>(this ITestDefinition<TFixture> result, object value)

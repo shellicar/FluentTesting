@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentFixture.Exceptions;
 
 namespace FluentFixture
 {
@@ -58,7 +59,7 @@ namespace FluentFixture
 
         public static void Fail(string message)
         {
-            throw new InvalidOperationException($"Test failed: {message}");
+            throw new TestFailedException($"Test failed: {message}");
         }
     }
 }
