@@ -8,7 +8,7 @@ namespace FluentFixture
     /// Class that helps build fixtures, perform operations and assert results.
     /// </summary>
     /// <typeparam name="TFixture">The type of the fixture.</typeparam>
-    /// <seealso cref="FixtureBuilderBase" />
+    /// <seealso cref="IFixtureBuilder{TFixture}" />
     internal class FixtureBuilder<TFixture> : IFixtureBuilder<TFixture>
     {
         // actions to perform to build the object

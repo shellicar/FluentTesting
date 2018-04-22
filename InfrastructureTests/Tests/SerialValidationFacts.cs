@@ -21,7 +21,7 @@ namespace InfrastructureTests.Tests
         [TestMethod]
         public void Serial_cannot_be_null()
         {
-            string serial = null;
+            const string serial = null;
 
             _sut.When()
                 .Validate(serial)

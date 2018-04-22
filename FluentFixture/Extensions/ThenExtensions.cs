@@ -1,60 +1,57 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FluentFixture.Extensions
 {
     public static class ThenExtensions
     {
-        public static void ThenExpectArgumentException(this ITestDefinition result, string paramName = null)
+        public static IThenResult<TException> ThenExpectException<TException>(this ITestDefinition result) where TException : Exception
         {
             void Invoke()
             {
                 result.Execute();
             }
 
-            var ex = Test.AssertThrows<ArgumentException>(Invoke);
-            if (paramName != null && ex.ParamName != paramName)
-            {
-                Test.Fail($"Param names are not equal: \"{ex.ParamName}\" != \"{paramName}\"");
-            }
+            var ex = Test.AssertThrows<TException>(Invoke);
+            return MakeResult(ex);
         }
 
-        public static void ThenExpectException<TException>(this ITestDefinition result) where TException : Exception
-        {
-            void Invoke()
-            {
-                result.Execute();
-            }
-
-            Test.AssertThrows<TException>(Invoke);
-        }
-
-        public static void ThenIsTrue(this ITestDefinition result)
+        public static IThenResult<bool> ThenIsTrue(this ITestDefinition result)
         {
             var obj = (bool)result.Execute()();
             Test.AssertTrue(obj);
+            return MakeResult(obj);
         }
 
-        public static void ThenIsFalse(this ITestDefinition result)
+        private static ThenResult<TResult> MakeResult<TResult>(TResult obj)
+        {
+            return new ThenResult<TResult>(obj);
+        }
+
+        public static IThenResult<bool> ThenIsFalse(this ITestDefinition result)
         {
             var obj = (bool)result.Execute()();
             Test.AssertFalse(obj);
+            return MakeResult(obj);
         }
 
         public static void ThenSuccess(this ITestDefinition result)
         {
-            result.Execute();
+            Test.AssertNoThrow(() => result.Execute());
         }
 
-        public static void ThenIs<TFixture>(this ITestDefinition<TFixture> result, object value)
+        public static IThenResult<object> ThenIs<TFixture>(this ITestDefinition<TFixture> result, object value)
         {
             var obj = result.Execute()();
             Test.AssertEqual(obj, value);
+            return MakeResult(obj);
         }
 
-        public static void ThenIsNot<TFixture>(this ITestDefinition<TFixture> result, object value)
+        public static IThenResult<object> ThenIsNot<TFixture>(this ITestDefinition<TFixture> result, object value)
         {
             var obj = result.Execute()();
             Test.AssertNotEqual(obj, value);
+            return MakeResult(obj);
         }
     }
 }

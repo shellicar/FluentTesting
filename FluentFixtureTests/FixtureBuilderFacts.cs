@@ -21,7 +21,7 @@ namespace FluentFixtureTests
                 test.ThenIs(true);
             }
 
-            Assert.ThrowsException<NoResultFromActionException>((Action) When);
+            Assert.ThrowsException<NoResultFromActionException>((Action)When);
         }
 
         [TestMethod]
@@ -32,6 +32,21 @@ namespace FluentFixtureTests
                 .Invoke(x => 5000)
 
                 .ThenIs(5000);
+        }
+
+        [TestMethod]
+        public void Then_success_fails_if_exception_is_thrown()
+        {
+            var test = DefaultBuilder.Create<TestingClass>()
+                .When()
+                .Invoke(x => throw new Exception());
+
+            void When()
+            {
+                test.ThenSuccess();
+            }
+
+            Assert.ThrowsException<TestFailedException>((Action)When);
         }
 
         [TestMethod]
@@ -46,7 +61,7 @@ namespace FluentFixtureTests
                 test.ThenIs(5000);
             }
 
-            Assert.ThrowsException<TestFailedException>((Action) When);
+            Assert.ThrowsException<TestFailedException>((Action)When);
         }
     }
 }

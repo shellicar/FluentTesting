@@ -61,5 +61,17 @@ namespace FluentFixture
         {
             throw new TestFailedException($"Test failed: {message}");
         }
+
+        public static void AssertNoThrow(Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception ex)
+            {
+                throw new TestFailedException($"Expected no exception, but exception {ex.GetType().Name} was thrown.", ex);
+            }
+        }
     }
 }

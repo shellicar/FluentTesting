@@ -72,7 +72,8 @@ namespace InfrastructureTests.Tests
             _sut.When()
                 .Validate(bookWithoutTitle)
 
-                .ThenExpectArgumentException(nameof(Book.Title));
+                .ThenExpectException<ArgumentException>()
+                .WithParameter(nameof(Book.Title));
         }
 
         [TestMethod]
@@ -84,7 +85,7 @@ namespace InfrastructureTests.Tests
             _sut.When()
                 .Validate(bookWithoutTitle)
 
-                .ThenExpectArgumentException();
+                .ThenExpectException<ArgumentException>();
         }
 
         [TestMethod]

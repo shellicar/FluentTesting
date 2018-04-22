@@ -1,3 +1,4 @@
+using System;
 using FluentFixture;
 using FluentFixture.Extensions;
 using InfrastructureTests.Extensions;
@@ -13,7 +14,7 @@ namespace InfrastructureTests.Tests
         public void Book_class_exists()
         {
             // tdd artefact...
-            new Book();
+            var _ = new Book();
         }
 
         [TestMethod]
@@ -55,7 +56,8 @@ namespace InfrastructureTests.Tests
                 .When()
                 .PerformValidateModel("book")
 
-                .ThenExpectArgumentException("book");
+                .ThenExpectException<ArgumentException>()
+                .WithParameter("book");
         }
     }
 }
