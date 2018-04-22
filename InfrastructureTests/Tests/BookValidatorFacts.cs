@@ -1,6 +1,5 @@
 using System;
 using Architecture;
-using ArchitectureTests.Builders;
 using ArchitectureTests.Extensions;
 using Core;
 using FluentFixture;
@@ -14,7 +13,7 @@ namespace ArchitectureTests.Tests
     [TestClass]
     public class BookValidatorFacts
     {
-        private readonly FixtureBuilder<BookValidator> _sut;
+        private readonly IFixtureBuilder<BookValidator> _sut;
 
         public BookValidatorFacts()
         {
@@ -28,7 +27,8 @@ namespace ArchitectureTests.Tests
         public void Calls_book_serial_validator_validate_method()
         {
             Book book = DefaultBuilder.Create<Book>()
-                .Valid();
+                .Valid()
+                .Build();
 
             _sut.WhenValidate(book)
 
@@ -41,7 +41,8 @@ namespace ArchitectureTests.Tests
             BookSerialValidator.When(x => x.Validate(Arg.Any<string>())).Throw<TestingException>();
 
             Book book = DefaultBuilder.Create<Book>()
-                .Valid();
+                .Valid()
+                .Build();
 
             _sut.WhenValidate(book)
 
@@ -62,7 +63,8 @@ namespace ArchitectureTests.Tests
         {
             var bookWithoutTitle = DefaultBuilder.Create<Book>()
                 .Valid()
-                .With(x => x.Title = null);
+                .With(x => x.Title = null)
+                .Build();
 
             _sut.WhenValidate(bookWithoutTitle)
 
@@ -72,7 +74,8 @@ namespace ArchitectureTests.Tests
         [TestMethod]
         public void Book_requires_title_and_serial()
         {
-            var bookWithoutTitle = DefaultBuilder.Create<Book>();
+            var bookWithoutTitle = DefaultBuilder.Create<Book>()
+                .Build();
 
             _sut.WhenValidate(bookWithoutTitle)
 
@@ -83,7 +86,8 @@ namespace ArchitectureTests.Tests
         public void Can_validate_valid_book()
         {
             var book = DefaultBuilder.Create<Book>()
-                .Valid();
+                .Valid()
+                .Build();
 
             _sut.WhenValidate(book)
 
@@ -91,6 +95,6 @@ namespace ArchitectureTests.Tests
         }
 
         private class TestingException : Exception
-        {}
+        { }
     }
 }

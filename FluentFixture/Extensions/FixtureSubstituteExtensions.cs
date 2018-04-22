@@ -5,7 +5,7 @@ namespace FluentFixture.Extensions
 {
     public static class FixtureSubstituteExtensions
     {
-        public static void ThenReceived<TInterface>(this FixtureBuilderBase result, TInterface theInterface, int count, Action<TInterface> theAction)
+        public static void ThenReceived<TInterface>(this ITestDefinition result, TInterface theInterface, int count, Action<TInterface> theAction)
             where TInterface : class
         {
             result.Execute();
@@ -13,7 +13,7 @@ namespace FluentFixture.Extensions
             theAction(theInterface.Received(count));
         }
 
-        public static void ThenReceived<TInterface>(this FixtureBuilderBase result, TInterface theInterface, Action<TInterface> theAction)
+        public static void ThenReceived<TInterface>(this ITestDefinition result, TInterface theInterface, Action<TInterface> theAction)
             where TInterface : class
         {
             result.Execute();

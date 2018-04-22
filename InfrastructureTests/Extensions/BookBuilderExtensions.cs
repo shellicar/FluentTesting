@@ -16,7 +16,7 @@ namespace ArchitectureTests.Extensions
         /// </summary>
         /// <param name="builder">The builder.</param>
         /// <returns>a valid Book.</returns>
-        public static FixtureBuilder<Book> Valid(this FixtureBuilder<Book> builder)
+        public static IFixtureBuilder<Book> Valid(this IFixtureBuilder<Book> builder)
         {
             builder.AddMethod(x =>
             {
@@ -27,7 +27,7 @@ namespace ArchitectureTests.Extensions
             return builder;
         }
 
-        public static FixtureBuilder<Book> WhenValidateModel(this FixtureBuilder<Book> builder, string paramName)
+        public static ITestDefinition<Book> WhenValidateModel(this ITestDefinition<Book> builder, string paramName)
         {
             return builder.When(x => x.ValidateModel(paramName));
         }

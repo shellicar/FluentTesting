@@ -18,7 +18,8 @@ namespace FluentFixtureTests
 
             Assert.ThrowsException<NoResultFromActionException>(() =>
             {
-                new FixtureBuilder<TestingClass>()
+                new TestingClass();
+                DefaultBuilder.Create<TestingClass>()
 
                     .When(DoAction)
 
@@ -34,7 +35,7 @@ namespace FluentFixtureTests
                 return 5000;
             }
 
-            var result = new FixtureBuilder<TestingClass>()
+            var result = DefaultBuilder.Create<TestingClass>()
 
                 .When(DoAction)
 

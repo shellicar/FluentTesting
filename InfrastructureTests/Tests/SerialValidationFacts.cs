@@ -1,7 +1,6 @@
 ﻿using System;
 using Architecture;
 using Architecture.Exceptions;
-using ArchitectureTests.Builders;
 using ArchitectureTests.Extensions;
 using FluentFixture;
 using FluentFixture.Extensions;
@@ -12,11 +11,11 @@ namespace ArchitectureTests.Tests
     [TestClass]
     public class SerialValidationFacts
     {
-        private readonly FixtureBuilder<SerialValidator> _sut;
+        private readonly IFixtureBuilder<SerialValidator> _sut;
 
         public SerialValidationFacts()
         {
-            _sut = new FixtureBuilder<SerialValidator>();
+            _sut = DefaultBuilder.Create<SerialValidator>();
         }
 
         [TestMethod]
@@ -43,7 +42,8 @@ namespace ArchitectureTests.Tests
         public void Valid_serial_is_valid()
         {
             var serial = DefaultBuilder.Create<BookSerial>()
-                .Valid();
+                .Valid()
+                .Build();
 
             _sut.WhenValidate(serial)
 
@@ -55,7 +55,8 @@ namespace ArchitectureTests.Tests
         {
             var serial = DefaultBuilder.Create<BookSerial>()
                 .WithGroup("123")
-                .WithGroup("123");
+                .WithGroup("123")
+                .Build();
 
             _sut.WhenValidate(serial)
 
@@ -67,7 +68,8 @@ namespace ArchitectureTests.Tests
         {
             var serial = DefaultBuilder.Create<BookSerial>()
                 .Valid()
-                .SetGroup(0, "12");
+                .SetGroup(0, "12")
+                .Build();
 
             _sut.WhenValidate(serial)
 

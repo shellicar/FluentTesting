@@ -10,7 +10,7 @@ namespace FluentFixture
     /// </summary>
     /// <typeparam name="TFixture">The type of the fixture.</typeparam>
     /// <seealso cref="FixtureBuilderBase" />
-    public class FixtureBuilder<TFixture> : FixtureBuilderBase
+    class FixtureBuilder<TFixture> : FixtureBuilderBase, IFixtureBuilder<TFixture>
     {
         // results of the invoked methods
         private List<InvokeResult> InvokeResults { get; } = new List<InvokeResult>();
@@ -30,7 +30,7 @@ namespace FluentFixture
         /// Adds a method to use to build the object.
         /// </summary>
         /// <param name="action">The action.</param>
-        public FixtureBuilder<TFixture> AddMethod(Modify<TFixture> action)
+        public IFixtureBuilder<TFixture> AddMethod(Modify<TFixture> action)
         {
             BuildActions.Add(action);
             return this;
@@ -40,7 +40,7 @@ namespace FluentFixture
         /// Sets the constructor arguments for the object.
         /// </summary>
         /// <param name="args">The arguments.</param>
-        public FixtureBuilder<TFixture> SetArguments(params object[] args)
+        public IFixtureBuilder<TFixture> SetArguments(params object[] args)
         {
             ConstructorArgs.Clear();
             ConstructorArgs.AddRange(args);
@@ -51,7 +51,7 @@ namespace FluentFixture
         /// Adds an action to perform on the fixture.
         /// </summary>
         /// <param name="action">The action.</param>
-        public FixtureBuilder<TFixture> When(Action<TFixture> action)
+        public ITestDefinition<TFixture> When(Action<TFixture> action)
         {
             void Newaction(TFixture x)
             {
@@ -68,7 +68,7 @@ namespace FluentFixture
         /// This uses the result of the previous invocation.
         /// </summary>
         /// <param name="action">The action.</param>
-        public FixtureBuilder<TFixture> WhenWithResult(Action<TFixture, object> action)
+        public ITestDefinition<TFixture> WhenWithResult(Action<TFixture, object> action)
         {
             void Newaction(TFixture x)
             {
@@ -86,7 +86,7 @@ namespace FluentFixture
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="func">The action.</param>
-        public FixtureBuilder<TFixture> WhenWithResult<TResult>(Func<TFixture, object, TResult> func)
+        public ITestDefinition<TFixture> WhenWithResult<TResult>(Func<TFixture, object, TResult> func)
         {
             void Newaction(TFixture x)
             {
@@ -103,7 +103,7 @@ namespace FluentFixture
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="func">The function.</param>
-        public FixtureBuilder<TFixture> When<TResult>(Func<TFixture, TResult> func)
+        public ITestDefinition<TFixture> When<TResult>(Func<TFixture, TResult> func)
         {
             void Newaction(TFixture x)
             {

@@ -4,7 +4,7 @@ namespace FluentFixture.Extensions
 {
     public static class ThenExtensions
     {
-        public static void ThenExpectArgumentException(this FixtureBuilderBase result, string paramName = null)
+        public static void ThenExpectArgumentException(this ITestDefinition result, string paramName = null)
         {
             void Invoke()
             {
@@ -18,8 +18,7 @@ namespace FluentFixture.Extensions
             }
         }
 
-
-        public static void ThenExpectException<TException>(this FixtureBuilderBase result) where TException : Exception
+        public static void ThenExpectException<TException>(this ITestDefinition result) where TException : Exception
         {
             void Invoke()
             {
@@ -29,31 +28,31 @@ namespace FluentFixture.Extensions
             Test.AssertThrows<TException>(Invoke);
         }
 
-        public static void ThenIsTrue<TEntity>(this FixtureBuilder<TEntity> result)
+        public static void ThenIsTrue(this ITestDefinition result)
         {
             var obj = (bool)result.Execute()();
             Test.AssertTrue(obj);
         }
 
-        public static void ThenIsFalse<TEntity>(this FixtureBuilder<TEntity> result)
+        public static void ThenIsFalse(this ITestDefinition result)
         {
             var obj = (bool)result.Execute()();
             Test.AssertFalse(obj);
         }
 
-        public static void ThenSuccess<TEntity>(this FixtureBuilder<TEntity> result)
+        public static void ThenSuccess(this ITestDefinition result)
         {
             result.Execute();
         }
 
-        public static object ThenIs<TEntity>(this FixtureBuilder<TEntity> result, object value)
+        public static object ThenIs<TFixture>(this ITestDefinition<TFixture> result, object value)
         {
             var obj = result.Execute()();
             Test.AssertEqual(obj, value);
             return obj;
         }
 
-        public static void ThenIsNot<TEntity>(this FixtureBuilder<TEntity> result, object value)
+        public static void ThenIsNot<TFixture>(this ITestDefinition<TFixture> result, object value)
         {
             var obj = result.Execute()();
             Test.AssertNotEqual(obj, value);

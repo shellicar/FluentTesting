@@ -1,5 +1,4 @@
 ﻿using Architecture;
-using ArchitectureTests.Builders;
 using ArchitectureTests.Extensions;
 using FluentFixture;
 using FluentFixture.Extensions;
@@ -10,7 +9,7 @@ namespace ArchitectureTests.Tests
     [TestClass]
     public class ResultTesterFacts
     {
-        private readonly FixtureBuilder<ResultTester> _sut;
+        private readonly IFixtureBuilder<ResultTester> _sut;
 
         public ResultTesterFacts()
         {

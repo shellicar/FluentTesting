@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{EFA3A39D-57C7-45C3-8FD4-01072EF4BDC2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Architecture", "Architecture\Architecture.csproj", "{8FF6AB1E-810F-4C8B-8E5E-146AB52D18FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{8FF6AB1E-810F-4C8B-8E5E-146AB52D18FE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentFixture", "FluentFixture\FluentFixture.csproj", "{EB5B0387-9BCF-4300-9449-F0AE1ED1C9D8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchitectureTests", "ArchitectureTests\ArchitectureTests.csproj", "{5903D14D-3904-4A66-AA65-BCED1D085E6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfrastructureTests", "InfrastructureTests\InfrastructureTests.csproj", "{5903D14D-3904-4A66-AA65-BCED1D085E6F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentFixtureTests", "FluentFixtureTests\FluentFixtureTests.csproj", "{4980C470-1538-4A50-A8D2-21B7EAA66E68}"
 EndProject
