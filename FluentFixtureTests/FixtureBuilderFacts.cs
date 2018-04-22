@@ -16,9 +16,12 @@ namespace FluentFixtureTests
                 .When()
                 .Invoke(x => { });
 
-            Action When = () => { test.ThenIs(true); };
+            void When()
+            {
+                test.ThenIs(true);
+            }
 
-            Assert.ThrowsException<NoResultFromActionException>(When);
+            Assert.ThrowsException<NoResultFromActionException>((Action) When);
         }
 
         [TestMethod]
@@ -38,9 +41,12 @@ namespace FluentFixtureTests
                 .When()
                 .Invoke(x => 4999);
 
-            Action When = () => { test.ThenIs(5000); };
+            void When()
+            {
+                test.ThenIs(5000);
+            }
 
-            Assert.ThrowsException<TestFailedException>(When);
+            Assert.ThrowsException<TestFailedException>((Action) When);
         }
     }
 }
