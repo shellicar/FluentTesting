@@ -1,10 +1,10 @@
-﻿using Architecture;
-using ArchitectureTests.Extensions;
-using FluentFixture;
+﻿using FluentFixture;
 using FluentFixture.Extensions;
+using Infrastructure;
+using InfrastructureTests.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ArchitectureTests.Tests
+namespace InfrastructureTests.Tests
 {
     [TestClass]
     public class ResultTesterFacts
@@ -21,7 +21,8 @@ namespace ArchitectureTests.Tests
         {
             var text = "hello";
 
-            _sut.WhenTransform(text)
+            _sut.When()
+                .Transform(text)
 
                 .ThenIs("olleh");
         }
@@ -31,7 +32,8 @@ namespace ArchitectureTests.Tests
         {
             var text = "hello";
 
-            _sut.WhenTransform(text)
+            _sut.When()
+                .Transform(text)
 
                 .ThenIsNot("hello");
         }

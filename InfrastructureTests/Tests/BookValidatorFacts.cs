@@ -1,14 +1,14 @@
 using System;
-using Architecture;
-using ArchitectureTests.Extensions;
 using Core;
 using FluentFixture;
 using FluentFixture.Extensions;
+using Infrastructure;
+using InfrastructureTests.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models;
 using NSubstitute;
 
-namespace ArchitectureTests.Tests
+namespace InfrastructureTests.Tests
 {
     [TestClass]
     public class BookValidatorFacts
@@ -26,11 +26,12 @@ namespace ArchitectureTests.Tests
         [TestMethod]
         public void Calls_book_serial_validator_validate_method()
         {
-            Book book = DefaultBuilder.Create<Book>()
+            var book = DefaultBuilder.Create<Book>()
                 .Valid()
                 .Build();
 
-            _sut.WhenValidate(book)
+            _sut.When()
+                .Validate(book)
 
                 .ThenReceived(BookSerialValidator, x => x.Validate(book.Serial));
         }
@@ -40,11 +41,12 @@ namespace ArchitectureTests.Tests
         {
             BookSerialValidator.When(x => x.Validate(Arg.Any<string>())).Throw<TestingException>();
 
-            Book book = DefaultBuilder.Create<Book>()
+            var book = DefaultBuilder.Create<Book>()
                 .Valid()
                 .Build();
 
-            _sut.WhenValidate(book)
+            _sut.When()
+                .Validate(book)
 
                 .ThenExpectException<TestingException>();
 
@@ -53,7 +55,8 @@ namespace ArchitectureTests.Tests
         [TestMethod]
         public void Book_cannot_be_null()
         {
-            _sut.WhenValidate(null)
+            _sut.When()
+                .Validate(null)
 
                 .ThenExpectException<ArgumentNullException>();
         }
@@ -66,7 +69,8 @@ namespace ArchitectureTests.Tests
                 .With(x => x.Title = null)
                 .Build();
 
-            _sut.WhenValidate(bookWithoutTitle)
+            _sut.When()
+                .Validate(bookWithoutTitle)
 
                 .ThenExpectArgumentException(nameof(Book.Title));
         }
@@ -77,7 +81,8 @@ namespace ArchitectureTests.Tests
             var bookWithoutTitle = DefaultBuilder.Create<Book>()
                 .Build();
 
-            _sut.WhenValidate(bookWithoutTitle)
+            _sut.When()
+                .Validate(bookWithoutTitle)
 
                 .ThenExpectArgumentException();
         }
@@ -89,12 +94,13 @@ namespace ArchitectureTests.Tests
                 .Valid()
                 .Build();
 
-            _sut.WhenValidate(book)
+            _sut.When()
+                .Validate(book)
 
                 .ThenSuccess();
         }
 
         private class TestingException : Exception
-        { }
+        {}
     }
 }

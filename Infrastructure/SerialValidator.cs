@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Architecture.Exceptions;
 using Core;
+using Infrastructure.Exceptions;
 
-namespace Architecture
+namespace Infrastructure
 {
     /// <summary>
     /// Performs validation on a string to assert that it is considered a valid serial.

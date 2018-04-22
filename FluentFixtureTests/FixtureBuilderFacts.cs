@@ -21,7 +21,8 @@ namespace FluentFixtureTests
                 new TestingClass();
                 DefaultBuilder.Create<TestingClass>()
 
-                    .When(DoAction)
+                    .When()
+                    .Invoke(DoAction)
 
                     .ThenIs(true);
             });
@@ -37,7 +38,8 @@ namespace FluentFixtureTests
 
             var result = DefaultBuilder.Create<TestingClass>()
 
-                .When(DoAction)
+                .When()
+                .Invoke(DoAction)
 
                 .ThenIs(5000);
 

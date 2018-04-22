@@ -2,7 +2,7 @@ using Core;
 using FluentFixture;
 using Models;
 
-namespace ArchitectureTests.Extensions
+namespace InfrastructureTests.Extensions
 {
     /// <summary>
     /// Extension methods to build Book objects fluently.
@@ -27,9 +27,9 @@ namespace ArchitectureTests.Extensions
             return builder;
         }
 
-        public static ITestDefinition<Book> WhenValidateModel(this ITestDefinition<Book> builder, string paramName)
+        public static ITestDefinition<Book> PerformValidateModel(this ITestDefinition<Book> builder, string paramName)
         {
-            return builder.When(x => x.ValidateModel(paramName));
+            return builder.Invoke(x => x.ValidateModel(paramName));
         }
     }
 }

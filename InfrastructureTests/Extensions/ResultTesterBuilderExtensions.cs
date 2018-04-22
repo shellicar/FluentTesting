@@ -1,13 +1,13 @@
-﻿using Architecture;
-using FluentFixture;
+﻿using FluentFixture;
+using Infrastructure;
 
-namespace ArchitectureTests.Extensions
+namespace InfrastructureTests.Extensions
 {
     public static class ResultTesterBuilderExtensions
     {
-        public static ITestDefinition<ResultTester> WhenTransform(this ITestDefinition<ResultTester> builder, string text)
+        public static ITestDefinition<ResultTester> Transform(this ITestDefinition<ResultTester> builder, string text)
         {
-            return builder.When(x => x.Transform(text));
+            return builder.Invoke(x => x.Transform(text));
         }
     }
 }

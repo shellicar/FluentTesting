@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Architecture.Exceptions
+namespace Infrastructure.Exceptions
 {
     public class GroupCountException : BookSerialValidateException
     {

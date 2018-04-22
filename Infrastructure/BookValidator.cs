@@ -1,7 +1,7 @@
 ﻿using Core;
 using Models;
 
-namespace Architecture
+namespace Infrastructure
 {
     /// <summary>
     /// Class to validate that a book passses validation.

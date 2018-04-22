@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Architecture
+namespace Infrastructure
 {
     /// <summary>
     /// Book serial class to encapsulate book serial text and provide simple methods to edit, add or parse text.<br />

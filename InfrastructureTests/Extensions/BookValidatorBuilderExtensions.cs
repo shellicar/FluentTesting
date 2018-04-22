@@ -1,14 +1,14 @@
-﻿using Architecture;
-using FluentFixture;
+﻿using FluentFixture;
+using Infrastructure;
 using Models;
 
-namespace ArchitectureTests.Extensions
+namespace InfrastructureTests.Extensions
 {
     public static class BookValidatorBuilderExtensions
     {
-        public static ITestDefinition<BookValidator> WhenValidate(this ITestDefinition<BookValidator> builder, Book book)
+        public static ITestDefinition<BookValidator> Validate(this ITestDefinition<BookValidator> builder, Book book)
         {
-            return builder.When(x => x.Validate(book));
+            return builder.Invoke(x => x.Validate(book));
         }
     }
 }

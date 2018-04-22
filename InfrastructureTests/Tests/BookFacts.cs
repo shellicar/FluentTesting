@@ -1,10 +1,10 @@
-using ArchitectureTests.Extensions;
 using FluentFixture;
 using FluentFixture.Extensions;
+using InfrastructureTests.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models;
 
-namespace ArchitectureTests.Tests
+namespace InfrastructureTests.Tests
 {
     [TestClass]
     public class BookFacts
@@ -19,7 +19,7 @@ namespace ArchitectureTests.Tests
         [TestMethod]
         public void Can_build_book()
         {
-            Book book = DefaultBuilder.Create<Book>()
+            var book = DefaultBuilder.Create<Book>()
                 .Build();
 
             Assert.IsInstanceOfType(book, typeof(Book));
@@ -28,7 +28,7 @@ namespace ArchitectureTests.Tests
         [TestMethod]
         public void Can_build_valid_book()
         {
-            Book book = DefaultBuilder.Create<Book>()
+            var book = DefaultBuilder.Create<Book>()
                 .Valid()
                 .Build();
 
@@ -41,7 +41,8 @@ namespace ArchitectureTests.Tests
             DefaultBuilder.Create<Book>()
                 .Valid()
 
-                .WhenValidateModel("book")
+                .When()
+                .PerformValidateModel("book")
 
                 .ThenSuccess();
         }
@@ -51,7 +52,8 @@ namespace ArchitectureTests.Tests
         {
             DefaultBuilder.Create<Book>()
 
-                .WhenValidateModel("book")
+                .When()
+                .PerformValidateModel("book")
 
                 .ThenExpectArgumentException("book");
         }

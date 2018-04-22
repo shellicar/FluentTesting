@@ -1,12 +1,12 @@
 ﻿using System;
-using Architecture;
-using Architecture.Exceptions;
-using ArchitectureTests.Extensions;
 using FluentFixture;
 using FluentFixture.Extensions;
+using Infrastructure;
+using Infrastructure.Exceptions;
+using InfrastructureTests.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ArchitectureTests.Tests
+namespace InfrastructureTests.Tests
 {
     [TestClass]
     public class SerialValidationFacts
@@ -23,7 +23,8 @@ namespace ArchitectureTests.Tests
         {
             string serial = null;
 
-            _sut.WhenValidate(serial)
+            _sut.When()
+                .Validate(serial)
 
                 .ThenExpectException<ArgumentNullException>();
         }
@@ -33,7 +34,8 @@ namespace ArchitectureTests.Tests
         {
             var serial = "    ";
 
-            _sut.WhenValidate(serial)
+            _sut.When().
+                Validate(serial)
 
                 .ThenExpectException<ArgumentException>();
         }
@@ -45,7 +47,8 @@ namespace ArchitectureTests.Tests
                 .Valid()
                 .Build();
 
-            _sut.WhenValidate(serial)
+            _sut.When()
+                .Validate(serial)
 
                 .ThenSuccess();
         }
@@ -58,7 +61,8 @@ namespace ArchitectureTests.Tests
                 .WithGroup("123")
                 .Build();
 
-            _sut.WhenValidate(serial)
+            _sut.When()
+                .Validate(serial)
 
                 .ThenExpectException<GroupCountException>();
         }
@@ -71,7 +75,8 @@ namespace ArchitectureTests.Tests
                 .SetGroup(0, "12")
                 .Build();
 
-            _sut.WhenValidate(serial)
+            _sut.When()
+                .Validate(serial)
 
                 .ThenExpectException<GroupParseException>();
         }

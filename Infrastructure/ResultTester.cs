@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Core;
 
-namespace Architecture
+namespace Infrastructure
 {
     public class ResultTester : IResultTester
     {
