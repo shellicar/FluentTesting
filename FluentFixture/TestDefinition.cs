@@ -24,7 +24,7 @@ namespace FluentFixture
         /// Adds an action to perform on the fixture.
         /// </summary>
         /// <param name="action">The action.</param>
-        public ITestDefinition<TFixture> Invoke(Action<TFixture> action)
+        public ITestDefinition<TFixture> Invoke(TestAction<TFixture> action)
         {
             void Newaction(TFixture x)
             {
@@ -41,7 +41,7 @@ namespace FluentFixture
         /// This uses the result of the previous invocation.
         /// </summary>
         /// <param name="action">The action.</param>
-        public ITestDefinition<TFixture> InvokeWithResult(Action<TFixture, object> action)
+        public ITestDefinition<TFixture> InvokeWithResult(TestActionWithResult<TFixture> action)
         {
             void Newaction(TFixture x)
             {
@@ -59,7 +59,7 @@ namespace FluentFixture
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="func">The action.</param>
-        public ITestDefinition<TFixture> InvokeWithResult<TResult>(Func<TFixture, object, TResult> func)
+        public ITestDefinition<TFixture> InvokeWithResult<TResult>(TestFunctionWithResult<TFixture, TResult> func)
         {
             void Newaction(TFixture x)
             {
@@ -76,7 +76,7 @@ namespace FluentFixture
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="func">The function.</param>
-        public ITestDefinition<TFixture> Invoke<TResult>(Func<TFixture, TResult> func)
+        public ITestDefinition<TFixture> Invoke<TResult>(TestFunction<TFixture, TResult> func)
         {
             void Newaction(TFixture x)
             {
